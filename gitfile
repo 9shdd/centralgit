@@ -1,0 +1,17 @@
+#!/bin/bash
+
+set -x
+yum update -y
+
+yum install git -y
+
+which git
+
+git --version
+git config --global user.name 'noshad'
+git config --global user.email 'noshadmalik98@gmail.com'
+git config --list
+mkdir git
+cd git
+git init
+touch gitfile
