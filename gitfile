@@ -15,3 +15,16 @@ mkdir git
 cd git
 git init
 touch gitfile
+#put some date into this file
+git status
+git add .
+git commit -m '1st commit'
+git status
+git log
+q
+#put some date into this file
+git status
+git add .
+git commit -m '1st commit'
+git status
+git log
