@@ -25,3 +25,12 @@ git log -1
 git log -2
 git log --onelone
 git log --grep 'ignore'
+git reset #before commit, after add .
+git revert <commit-id> #after commit
+git clean -n #means it show what file going to be remove 
+git clean -f #now files would be remove
+git tag -a <tag-name> -m <message> <commit-id>
+git tag #to see all taggs
+git show <tag-name> #to see the all detatils of particular tag
+git tag -d <tag-name> # to delete the particular tag
+git clone <url-of-repo> #to cloning means copy paste
