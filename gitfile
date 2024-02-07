@@ -21,6 +21,7 @@ git log -2
 git log -3
 git log --onelone
 git log --grep 'ignore'
+git merge <branch-name> # make sure you are in that branch where you want to merge the contnet :NOTE git we can't merge branch in diffrent repo
 git reset #before commit, after add .
 git revert <commit-id> #after commit
 git clean -n #means it show what file going to be remove 
