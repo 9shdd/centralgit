@@ -2,8 +2,8 @@
 set -x
 yum update -y
 yum install git -y
-which git #to see the verion of git
-git --version
+which git #to check git is installed and path 
+git --version # to see the version of git
 git config --global user.name 'noshad'
 git config --global user.email 'noshadmalik98@gmail.com'
 git config --list
