@@ -10,12 +10,11 @@ git config --list
 mkdir git
 cd git
 git init
-touch gitfile
-#put some date into this file
+touch gitfile #put some date into this file
 git status
 git add .
 git commit -m '1st commit'
-git status
+git status #to check working tree/workspace is clean or not
 git log
 git log -1
 git log -2
