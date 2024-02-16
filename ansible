@@ -9,45 +9,59 @@ Ansible can be installed on Windows using the Windows Subsystem for Linux (WSL) 
 
 dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
 
-
 After enabling WSL, you'll need to install a Linux distribution, such as Ubuntu, from the Microsoft Store. Once the distribution is installed, you can use the Linux terminal to install Ansible using apt-get.
 
 sudo apt-add-repository ppa:ansible/ansible
 sudo apt-get update
 sudo apt-get install ansible
 
-
 Installing Ansible on Ubuntu:
 Ansible can be installed on Ubuntu using the apt package manager. First, you'll need to add the Ansible PPA to your system by running the following command:
 
 sudo apt-add-repository ppa:ansible/ansible
-
 
 Next, update the package list and install Ansible using apt-get:
 
 sudo apt-get update
 sudo apt-get install ansible
 
-
 Installing Ansible on CentOS:
 Ansible can be installed on CentOS using the yum package manager. First, you'll need to add the Ansible repository to your system by running the following command:
 
 sudo yum install epel-release
 
-
 Next, install Ansible using yum:
 
 sudo yum install ansible
 
-
 ANSIBLE DEFAULTS CONFIG FILE https://gist.github.com/alivx/2a4ca3e577ead4bd38d247c258e6513b
 
 ==========================================================================================
-to get the ssh ans scp
-1 go to #vi /etc/ssh/sshd_config
+First thing after installation ansible, create the user in server and nodes then do the following changes
+To get the ssh and scp/rsync
+1 go to this path and change the config as below #vi /etc/ssh/sshd_config
 2 # Authentication:
     PermitRootLogin prohibit-password
   # To disable tunneled clear text passwords, change to no here!
     PasswordAuthentication yes
   # some PAM modules and threads)
     KbdInteractiveAuthentication no
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+commands........
+#ansible --list nodes To check all connected nodes
+1. Ad-hoc commands... use -a
+NOTE: idempotancy is present means overrite the task, again and again does the task
+#ansible grpname -a 'ls or ls -a or pwd' or #ansible demo[0] -a 'useradd malik'
+#ansible grpname -a 'sudo yum install httpd -y'  or #ansible all -ba 'yum install httpd -y'  [a for argument, b for become, sudo basically]
+
+2. modules........ use -m
+NOTE: idempotancy is present means no overrite or repeat any task, it tells this/that already done or installed or created
+#ansible demo -m setup  or # ansible demo -m setup -a 'filter=*ipv4*'  [this setup module basically tells the current configuration]
+#ansible demo -b -m yum -a 'pkg=httpd state=present or install'     [present for install]
+#ansible demo -b -m yum -a 'pkg=httpd state=absent'               [absent for remove]
+#ansible demo -b -m yum -a 'pkg=httpd state=latest'              [latest for update]
+#ansible demo -b -m service -a 'name=httpd state=started'      [started for service start]
+#ansible demo -b -m user -a 'name=malik'
+#ansible demo -b -m user -a 'name=malik state=absent'        [absent for user remove]
+#ansible demo -b -m copy -a 'src=testfile dest=/tmp'
