@@ -1,0 +1,53 @@
+FOR ANSIBLE DOWLOAD PACKAGE AND DEPENDENCIES
+https://rpmfind.net/linux/rpm2html/search.php?query=ansible
+https://releases.ansible.com/ansible/rpm/release/epel-7-x86_64/
+
+ANSIBLE DOWNLOAD LINK https://rpmfind.net/linux/epel/9/Everything/s390x/Packages/a/ansible-7.7.0-1.el9.noarch.rpm
+
+Installing Ansible on Windows:
+Ansible can be installed on Windows using the Windows Subsystem for Linux (WSL) feature.First, you'll need to enable the WSL feature by running the following command in PowerShell:
+
+dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
+
+
+After enabling WSL, you'll need to install a Linux distribution, such as Ubuntu, from the Microsoft Store. Once the distribution is installed, you can use the Linux terminal to install Ansible using apt-get.
+
+sudo apt-add-repository ppa:ansible/ansible
+sudo apt-get update
+sudo apt-get install ansible
+
+
+Installing Ansible on Ubuntu:
+Ansible can be installed on Ubuntu using the apt package manager. First, you'll need to add the Ansible PPA to your system by running the following command:
+
+sudo apt-add-repository ppa:ansible/ansible
+
+
+Next, update the package list and install Ansible using apt-get:
+
+sudo apt-get update
+sudo apt-get install ansible
+
+
+Installing Ansible on CentOS:
+Ansible can be installed on CentOS using the yum package manager. First, you'll need to add the Ansible repository to your system by running the following command:
+
+sudo yum install epel-release
+
+
+Next, install Ansible using yum:
+
+sudo yum install ansible
+
+
+ANSIBLE DEFAULTS CONFIG FILE https://gist.github.com/alivx/2a4ca3e577ead4bd38d247c258e6513b
+
+==========================================================================================
+to get the ssh ans scp
+1 go to #vi /etc/ssh/sshd_config
+2 # Authentication:
+    PermitRootLogin prohibit-password
+  # To disable tunneled clear text passwords, change to no here!
+    PasswordAuthentication yes
+  # some PAM modules and threads)
+    KbdInteractiveAuthentication no
