@@ -68,3 +68,76 @@ NOTE: idempotancy is present means no overrite or repeat any task, it tells this
 #ansible demo -b -m user -a 'name=malik'
 #ansible demo -b -m user -a 'name=malik state=absent'        [absent for user remove]
 #ansible demo -b -m copy -a 'src=testfile dest=/tmp'
+
+3. Playbook........
+#target which is mandatory in every playbook like in chef as well
+
+- hosts: demo
+  user: ansible
+  become: yes
+  connection: ssh
+  gather_facts: yes   #this line is not mandatory btw for eg:
+ TASK [Gathering Facts] ********* ok: [172.31.7.171]
+
+---#this is a task playbook/file 
+- hosts: demo
+  user: ansible
+  become: yes
+  connection: ssh
+
+  tasks:   #this is task how to define
+    - name: install apache2 # this is the message 
+      action: apt name=apache2 state=present
+
+
+---#this is task and variable and handlers(means if pkg is availble then do started aslo) playbook
+- hosts: demo
+  user: ansible
+  become: yes
+  connection: ssh
+  gather_facts: yes
+
+  vars: 
+  - pkgname: apache2
+  
+  tasks:
+    - name: install apache2 # this is the message 
+      action: apt name='{{pkgname}}' state=present
+
+
+--- # playbook for handers
+#target
+- hosts: demo
+  user: ansible
+  become: yes
+  connection: ssh
+
+  tasks:
+    - name: install apache2 on ubuntu# this is the message 
+      action: apt name=apache2 state=present
+      notify: restart apache2
+
+  handlers:
+    - name: restart apache2 
+      action: service name=apache2 state=restarted
+
+
+--- # playbook for loop
+#target
+- hosts: demo
+  user: ansible
+  become: yes
+  connection: ssh
+
+  tasks:
+    - name: add the list of users on nodes
+      user: name='{{item}}' state=present
+      with_items:
+        - hato
+        - bacho 
+        - hato_bacho   
+
+
+NOTE: if changed is zero comes again and again means already install/no overrrite 'idempotancy'
+PLAY RECAP ***********************************************************************************************************************************************************
+172.31.7.171               : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
