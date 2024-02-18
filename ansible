@@ -46,6 +46,9 @@ To get the ssh and scp/rsync
     PasswordAuthentication yes
   # some PAM modules and threads)
     KbdInteractiveAuthentication no
+3 login the user(ansible in my case) then generate the ssh key(#ssh-keygen) and then
+got the this location (#cd .ssh/) ans check for the id_rsa.pub) and share this public key (#ssh-copy-id username@private-ip) with the remote machine once
+NOTE: Make sure these pulic keys should be share user to user or you want to with whom
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 commands........
