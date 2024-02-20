@@ -78,8 +78,8 @@ NOTE: idempotancy is present means no overrite or repeat any task, it tells this
   connection: ssh
   gather_facts: yes   #this line is not mandatory btw for eg:
  TASK [Gathering Facts] ********* ok: [172.31.7.171]
-
----#this is a task playbook/file 
+/////////////////////////////////////////////////////////////////////
+---#How to make task playbook/file 
 - hosts: demo
   user: ansible
   become: yes
@@ -89,8 +89,8 @@ NOTE: idempotancy is present means no overrite or repeat any task, it tells this
     - name: install apache2 # this is the message 
       action: apt name=apache2 state=present
 
-
----#this is task and variable and handlers(means if pkg is availble then do started aslo) playbook
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+---#How to make task and variable and handlers(means if pkg is availble then do started aslo) playbook
 - hosts: demo
   user: ansible
   become: yes
@@ -104,7 +104,8 @@ NOTE: idempotancy is present means no overrite or repeat any task, it tells this
     - name: install apache2 # this is the message 
       action: apt name='{{pkgname}}' state=present
 
-
+//////////////////////////////////////////////////
+how to make handlers(dependencies) playbook
 --- # playbook for handers
 #target
 - hosts: demo
@@ -121,7 +122,8 @@ NOTE: idempotancy is present means no overrite or repeat any task, it tells this
     - name: restart apache2 
       action: service name=apache2 state=restarted
 
-
+/////////////////////////////////////////////////
+How to make loop playbook
 --- # playbook for loop
 #target
 - hosts: demo
@@ -136,8 +138,31 @@ NOTE: idempotancy is present means no overrite or repeat any task, it tells this
         - hato
         - bacho 
         - hato_bacho   
+///////////////////////////////////////////
+How to make condition playbook 
+--- # condition playbook
+- hosts: demo
+  user: ansible
+  connection: ssh
+  become: yes
 
-
+  tasks: 
+   - name: install apache2 server on debian and ubuntu machine
+     command: apt-get install apache2 -y
+     when: ansible_os_family == 'Debian'  #this line is not mandatory but if don't use then it will show one command is running and the 2nd is failed(not good practice)
+   - name: isntall httpd server on centos and redhat amd amazon machine
+     command: yum install httpd -y
+     when: ansible_os_family == 'redhat'
 NOTE: if changed is zero comes again and again means already install/no overrrite 'idempotancy'
 PLAY RECAP ***********************************************************************************************************************************************************
 172.31.7.171               : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#vault commands is used to encrypt and decrypt the playbook
+1 To create a new encrypt file/playbook # ansible-vault create <new-palybook-neme>
+2 To edit/open the encrypted playbook # ansible-vault edit <new-palybook-neme>
+3 To change the encrypted palybook password # ansible-vault rekey <playbook-name>
+4 To encrypt an existing/created playbook  # ansible-vault encrypt <created-playbook-name>
+5 To decrypt an existing/created playbook  # ansible-vault decrypt <created-playbook-name>
+NOTE: in this vault use AES256 technology
+///////////////////////////////////////////////////////////////////////////////////////////////
