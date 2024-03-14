@@ -19,11 +19,12 @@ Docker container: container hold the entire packages related to run the applicat
                   in simple word container is like a virtual machine
                   image becomes container when image runs on docker engine
 COMMANDS.........
-# docker images To see all present images in machine
-# docker search 'image-name'       To see any images is present or not on docker hub 
-# docker pull 'image -name'        To download any image in local machine from docker hub
+# docekr version               To see docker version like 24.0.5
+# docker images                 To see all present images in machine
+# docker search 'image-name'    To see any images is present or not on docker hub 
+# docker pull 'image -name'     To download any image in local machine from docker hub
 # docker run -it --name 'give-contnr-name' 'image-name' /bin/bash  To give contnr custom name
-# service docker status        To see/check docker service is start or not
+# service docker status        To see/check docker service is start or not, also #docker info
 # docker start 'contnr-name'   TO start the contnr
 # docker attach 'contnr-name'  To go inside the contnr make sure first start the contnr
 # docker ps -a                 To see all contnr including running and stop
