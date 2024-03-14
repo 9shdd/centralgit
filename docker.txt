@@ -1,0 +1,32 @@
+docker is an open source centralized platform designed to create deploy and run applications.
+we can install docker on any OS but it runs natively on linux distribution.
+docker written in 'go' language.
+docker tool that performs os level virtualization while vm hardware level.
+docker also known as containerization
+docker is set of 'paas' service.
+Advantages: no pre allocation of RAM
+            less cost
+            it is light in weight
+            
+NOTE: when image is runs called container
+DockerHub/Rejistery: docker rejistery manage and sores the docker images.
+there are 2 types of rejistery 1 is private(used to share images within enterprise), 2 is public(also called as docker hub).
+Docker images: docker images are read only binary templates used to create docker container OR single file with all dependencies.
+THERE ARE 3 WAYS TO CREATE AN IMAGES: take images from docker hub
+                                      create image from docker file
+                                      create image from existing docker container
+Docker container: container hold the entire packages related to run the application
+                  in simple word container is like a virtual machine
+                  image becomes container when image runs on docker engine
+COMMANDS.........
+# docker images To see all present images in machine
+# docker search 'image-name'       To see any images is present or not on docker hub 
+# docker pull 'image -name'        To download any image in local machine from docker hub
+# docker run -it --name 'give-contnr-name' 'image-name' /bin/bash  To give contnr custom name
+# service docker status        To see/check docker service is start or not
+# docker start 'contnr-name'   TO start the contnr
+# docker attach 'contnr-name'  To go inside the contnr make sure first start the contnr
+# docker ps -a                 To see all contnr including running and stop
+# docker ps                    To see only running contnrs
+# docker stop 'contnr-name'    To stop contnr
+# docker rm 'contnr-name'      To delete contnr make sure contnr is stoped 
