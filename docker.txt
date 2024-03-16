@@ -31,3 +31,40 @@ COMMANDS.........
 # docker ps                    To see only running contnrs
 # docker stop 'contnr-name'    To stop contnr
 # docker rm 'contnr-name'      To delete contnr make sure contnr is stoped 
+Dockerfile & it's components.............
+Q. what is docker file - docker file is a text file which contains some set of instructions.
+Components... make sure all components name must be written in only CAPITAL letter
+FROM - for base image this cmnd/cmpont must be written on top of the file
+RUN - to execute any command, it will create a layer in image
+CMD - execute commands but during contnr creation
+ENTRYPOINT - similar to CMD but it has higher priority first commands will be executed by entrypoint
+MAINTAINER- description/author-name/Owner-name
+COPY - copy files from local/base system, source and destination is needed
+ADD - similar to COPY but it provides a feature to dowlnload files from internet, we can also extract file at docker image side
+EXPOSE - TO expose any ports like jenkins 8080
+WORKDIR -  TO set any working directory for a contnr
+ENV - Environment variables eg. pm = modi
+Now let's create one Docker file with the named Dockerfile(first letter of files must be Caps always)
+1. create a file named Dockerfile
+2. add instructions in dockerfile
+3. use command # docker bulid -t 'image-name' to build an image from the dockerfile
+4. run image to create contnr
+# vi Dockerfile 
+From ubuntu 
+WORKDIR /tmp
+RUN echo 'creted docker file' > /tmp/testfile
+ENV myname noshad
+COPY newtestfile /tmp
+ADD test.tar.gz /tmp
+Now run the command # docker build -t give-'image-name' .
+
+2. How to create new image by existing contnr 
+First create 1 container # docker run -it --name dockerfilecontnr 'image-name' /bin/bash
+Then create 1 file insode temp dir # touch /tmp/ myfile
+Now if you want to see the difference b/w base image & chages what you did 
+# docker diff 'contnr-name' 'image-name'
+Now create 1 image of this contnr # docker commit 'contnr-name' 'image-name'
+Then check created image # docker images
+Now create 1 contnr from this created image by existing contnr
+# docker run -it --name 'contnr-name' 'image-name' /bin/bash
+Goto the tmp dir and check 'myfile' file # cd /tmp/
