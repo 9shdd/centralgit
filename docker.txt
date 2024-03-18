@@ -43,6 +43,7 @@ COPY - copy files from local/base system, source and destination is needed
 ADD - similar to COPY but it provides a feature to dowlnload files from internet, we can also extract file at docker image side
 EXPOSE - TO expose any ports like jenkins 8080
 WORKDIR -  TO set any working directory for a contnr
+VOLUME - it is like a dir define when contnr creating, share it to with contnr to contrn and host to host
 ENV - Environment variables eg. pm = modi
 Now let's create one Docker file with the named Dockerfile(first letter of files must be Caps always)
 1. create a file named Dockerfile
@@ -68,3 +69,39 @@ Then check created image # docker images
 Now create 1 contnr from this created image by existing contnr
 # docker run -it --name 'contnr-name' 'image-name' /bin/bash
 Goto the tmp dir and check 'myfile' file # cd /tmp/
+
+Docker volume & how to share it between containers
+What is volume - Volume is a simple directory in contnr
+1st we have to declare dir as a volume while we creating a contnr then we can share the volume
+you can not create a volume from existing contnr
+Even, if we stop the contnr, still we can access the volume/dir
+we can volume in 2 ways contr-to-contnr & host-to contnr
+Step........
+# vi Dockerfile
+FROM ubuntu 
+VOLUME ["/myvoulme"]
+:wq!
+then create an image from this created  dockerfile # docker build -t 'give-image-name'
+now create a contnr from this created image # docker run -it --name 'give-contnr-name' 'image-name' /bin/bash
+run # ls and check volume/dir is available or not
+Now share this volume with another contnr
+run # docker run --it --name 'give-old-contnr-name' --priviged=true --volumes-from 'give-new-contnr-name' ubuntu /bin/bash
+now run and check volume is available or not # ls 
+and create 1 files and then go to in previus contnr and check file is available or not
+
+Now try create volume by using command
+# docker run -it --name volumeimage -v /volume ubuntu /bin/bash
+then share this volume with another contnrs
+
+Now try to share volimes host-contnr
+create any dir in host machine
+# docker run -it --name hostcontnr -v '/home/ec2-user:/sharedir' --privileged=true 'give-image-name' /bin/bash
+then check the dir in created contnr and create any files and then check it in host machine
+
+some other commands.......
+# docker volume ls  To see the created volume list
+# docker volume create 'volume-name'  To create volume in local machine
+# docker volume rm  To remove creted dcoker volume
+# docker volume prune  To remove all unused docker volume 
+# docker volume inspect 'volume-name'  To inspect volume details
+# docker container inspect 'contnr-name'  To check contnr details 
