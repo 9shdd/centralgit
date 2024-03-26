@@ -104,4 +104,26 @@ some other commands.......
 # docker volume rm  To remove creted dcoker volume
 # docker volume prune  To remove all unused docker volume 
 # docker volume inspect 'volume-name'  To inspect volume details
-# docker container inspect 'contnr-name'  To check contnr details 
+# docker container inspect 'contnr-name'  To check contnr details
+# docker stop $(docker ps -a q)  To stop all running contnr
+# docker rm $(docker ps -a -q)  To delete all stopped contnrs
+# docker rmi -f (docker images -q)  To delete all images
+
+Docker port expose.....
+1 create and run container at a time
+# docekr run -td --name 'give-contnr-name' -p 80:80 ubuntu 
+# docker ps   To check running contnr
+# docker port 'contnr-name'  To check expose port
+# docker exec -it 'contnr-name' /bin/bash   To enter in the contnr with a new process with exec cmnds
+OR # docker attach 'contnr-name'
+Go to this path # cd /var/www/html
+echo 'this is a port expose server with host to contnr' >index.html
+
+How to push docker images on docker hub....
+1 create the image form the crated contnr
+# docker commit 'creted-contnr-name' 'give-image-name'
+2 give the tag to the images # docker tag 'give-any-name' dockerid/image1(just-name)
+3 # docker push imageid/image1
+4 # docker pull imageid/image1 
+5 run this image and create the contnr # docker run -it --name pullimage 'image-name' /bin/bash
+
