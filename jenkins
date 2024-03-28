@@ -1,0 +1,68 @@
+JENKINS..............
+what is CI/CD pipeline?
+continious integration is basically continious build + continious testing.
+jenkins is an open source project written in java, it is runs on almost all os.
+jenkins port number is 8080
+jenkins automate the entire software development life cycle.
+jenkins was originally developed by sun microsystem in 2004
+whenever developers write a code we integrate all developers code at that point of time we build and test and deliver/deploy to the clinet
+this process is called CI/CD.
+because of CI bugs will be reported fast and get rectified fast so the entire software development fast.
+Workflow of jenkins...
+we can attach git(central repo), maven(building tool/plugins), selenium(testting tool/plugins) and artifactory plugins to jenkins.
+once developers push the code in github, jenkins pull the code and sent to maven for build
+once build is done, jenkins pull the code and send to selenium for testing
+once testing is done, jenkins pull the code and artifactory(archive purpose for future) as per reqiurement and so on
+we can deploy with jenkins also
+Advantages of jenkins........
+jenkins has lot of plugins
+you can write own plugin, because it is not just a tool it is framework
+you can also use community plugin
+jenkins is a master and slave architecure if the slave is avalibale then jenkins does the job as a master
+jenkins also support the job/task scheduling 
+jenkins create a lables also means we can set this task will does this person something like this.
+
+CI/CD project setupe part 1 in windows
+1 download the git version 2.3.1 for windows
+2 open the downloaded file
+3 preamble-->c:\programfiles\git-->select
+4 complonent-->select start menu folder
+5 -->choose the default editor vim
+6 -->let git decide-->git from the cmnd line and alos from the 3rd party 'option'
+7 software-->use the open ssl library
+8 -->then checkout as is , commit unix line style encodings-->use mintty-->choose default behavior
+9 -->git credentials manager core -->chech the enable file system caching checkbox -->Install
+goto the cmd promt and configure the git
+#git --version
+#git config --global user.name 'give-user-name'
+#git config --global user.email 'give-email-id'
+check # git config --list
+
+Now download the jdk kit (java development kit)
+1 download the jdk from chrome
+2 thne goto c drive->programfiles->jdk 16->select path and copy it
+search 'edit system environment variables' ->goto user variables ->new type 'variable name-JAVA_HOME'
+'variable-value-PASTE THE COPIED PATH HERE'
+Now goto system variable ->new variable name-JAVA_HOME varaible value-paste the path here
+NOW goto again inside program files folder->bin and paste the path
+again goto 'edit system environment variables'->system variables->path->new->paste the path
+Now verify in cmnd promt echo%JAVA_HOME%
+
+Maven download and configure
+goto chrome searh maven.apache.org ->download binary zip archive
+extract file ->C:DevTools
+goto c drive->DevTtools->apache->maven ->copy this path
+now goto the system variables->new variavle name-M2_Home ,variable value-paste the copied path
+now goto apache->maven->bin->folder->copy this path
+now again goto envrnt variable ->system variavles->path->paste the copied bin path
+now goto cmd promt-> check #mvn -version, # echo %M2_HOME%
+restart the laptop
+
+now download and configure jenkins
+goto chrome ->jenkins.io->download->select long term support(LTS)
+open downloaded file and run->install
+after installation it automatically open on as localhost:8080
+unlock the page by giving default path of password then unlock using password
+now isntall these sudgested plugins 
+username admin, password any, email , save and continue
+Plugins-> these are small kind of libraries that add new abilities to jenkins and can provide integration to other tools
