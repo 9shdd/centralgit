@@ -53,12 +53,16 @@ NOTE: Make sure these pulic keys should be share user to user or you want to wit
 
 commands........
 #ansible --list nodes To check all connected nodes
-1. Ad-hoc commands... use -a
+1. Ad-hoc commands. ->ad-hoc amnds is used to run individually perform quick functions, 
+ad-hoc cmnds can not be used for configuration management and development becaue of one time usage,
+path - /usr/bin/ansible
+use -a
 NOTE: idempotancy is present means overrite the task, again and again does the task
-#ansible grpname -a 'ls or ls -a or pwd' or #ansible demo[0] -a 'useradd malik'
-#ansible grpname -a 'sudo yum install httpd -y'  or #ansible all -ba 'yum install httpd -y'  [a for argument, b for become, sudo basically]
+#ansible 'grpname' -a 'ls or ls -a or pwd' or #ansible demo[0] -a 'useradd malik'
+#ansible 'grpname' -a 'sudo yum install httpd -y'  or #ansible all -ba 'yum install httpd -y'  [a for argument, b for become, sudo basically]
 
-2. modules........ use -m
+2. modules. -> ansible modules just like a library and the path of modeules/inventory files is /etc/ansible/hosts
+ use -m
 NOTE: idempotancy is present means no overrite or repeat any task, it tells this/that already done or installed or created
 #ansible demo -m setup  or # ansible demo -m setup -a 'filter=*ipv4*'  [this setup module basically tells the current configuration]
 #ansible demo -b -m yum -a 'pkg=httpd state=present or install'     [present for install]
@@ -69,7 +73,8 @@ NOTE: idempotancy is present means no overrite or repeat any task, it tells this
 #ansible demo -b -m user -a 'name=malik state=absent'        [absent for user remove]
 #ansible demo -b -m copy -a 'src=testfile dest=/tmp'
 
-3. Playbook........
+3. Playbook.. ->like a file written in yaml format, commomnly use for configuration,there r many sections
+ target(define the host) / task(list of all modules that runs in an order) / variable(define variables, set before the tasks)
 #target which is mandatory in every playbook like in chef as well
 
 - hosts: demo
@@ -90,7 +95,7 @@ NOTE: idempotancy is present means no overrite or repeat any task, it tells this
       action: apt name=apache2 state=present
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
----#How to make task and variable and handlers(means if pkg is availble then do started aslo) playbook
+---#How to make task and variable playbook
 - hosts: demo
   user: ansible
   become: yes
@@ -105,7 +110,8 @@ NOTE: idempotancy is present means no overrite or repeat any task, it tells this
       action: apt name='{{pkgname}}' state=present
 
 //////////////////////////////////////////////////
-how to make handlers(dependencies) playbook
+how to make handlers(dependencies) playbook -? A handlers is exactly the same as task in ansible but it'll run when called by another task
+main directive is 'notify' in handlers use in tasks like [notify: restart apache2] 
 --- # playbook for handers
 #target
 - hosts: demo
@@ -139,7 +145,8 @@ How to make loop playbook
         - bacho 
         - hato_bacho   
 ///////////////////////////////////////////
-How to make condition playbook 
+How to make condition playbook -?whenever we have diffrent-2 scenarios, we put the conditions acc. to the wcenarions in playbook file 
+use 'when' statement for condition
 --- # condition playbook
 - hosts: demo
   user: ansible
@@ -166,3 +173,5 @@ PLAY RECAP *********************************************************************
 5 To decrypt an existing/created playbook  # ansible-vault decrypt <created-playbook-name>
 NOTE: in this vault use AES256 technology
 ///////////////////////////////////////////////////////////////////////////////////////////////
+Dry run -? to check whether the playbook format is correct or not
+# anisble-playbook 'playbook-name' --check
