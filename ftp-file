@@ -1,0 +1,42 @@
+#Permnsfer Protocol ]
+
+=========================
+1. FTP server bassically use to transfer any file over the network.
+2. It is basically allow two types of opetration:-
+	1. GET OR Download
+	2. PUT  OR Upload
+
+3. In ftp server we have types of user accounts.
+
+Types of users
+
+	===>  anonymous or ftp    ==> ftp or anonymous  ==>  /var/ftp/  ==>  Downloading is allowed
+							     ==>  can't upload by default
+
+	===>  valid user account   ==> amit sumit   	==>  /home/sumit/   <==  [ Download allow ]
+								<== [ Upload allow ]
+
+Note : In rhel8 anynomous user is disabled
+=====================================================
+Requirements:-
+
+Server Machine FTP Server
+
+Package: vsftpd
+Deamon: vsftpd
+Port number :  21 [ control connection ]
+	        20 [ data connection ]
+
+Configuration file :  /etc/vsftpd/vsftpd.conf
+Log file :  /var/log/xferlog   OR  /var/log/vsftpd.log
+Anonymous user  ==>  home directory  ==> /var/ftp/
+valid user		==>  home directory  ==>  /home/deepak/
+
+========================================================
+
+# wget  ftp://192.168.1.50/data/file.txt
+
+========================================================
+
+itRootLogin prohibit-password
+
