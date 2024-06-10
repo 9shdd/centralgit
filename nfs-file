@@ -1,0 +1,61 @@
+:
+w to Setup NFS (Network File System)
+NFS (Network File System) is basically developed for sharing of files and folders between
+Linux/Unix systems by Sun Microsystems in 1980. It allows you to mount your local file
+systems over a network and remote hosts to interact with them as they are mounted locally on
+the same system. With the help of NFS, we can set up file sharing between Unix to Linux
+systems and Linux to Unix systems.
+Benefits of NFS
+1. NFS allows local access to remote files.
+2. It uses standard client/server architecture for file sharing between all *nix based
+machines.
+3. With NFS it is not necessary that both machines run on the same OS.
+4. With the help of NFS we can configure centralized storage solutions.
+5. Users get their data irrespective of physical location.
+6. No manual refresh needed for new files.
+7. Can be secured with Firewalls.
+NFS Services
+Its a System V-launched service. The NFS server package includes three facilities, included in
+the portmap and nfs-utils packages.
+1. portmap : It maps calls made from other machines to the correct RPC service (not
+required with NFSv4).
+2. nfs: It translates remote file sharing requests into requests on the local file system.
+3. rpc.mountd: This service is responsible for mounting and unmounting of file systems.
+4. NFS Port Number : 2049
+5. RPC and PORTMAP : 111
+6. Package Name : nfs-utils
+Ravendra 9675006960
+Important Files for NFS Configuration
+1. /etc/exports : Its a main configuration file of NFS, all exported files and directories are
+defined in this file at the NFS Server end.
+2. /etc/sysconfig/nfs : Configuration file of NFS to control on which port rpc and other
+services are listening.
+3. /var/log/messages : To check logs regarding nfs.
+Setup and Configure NFS Mounts on Linux
+To setup NFS mounts, we’ll be needing at least two Linux/Unix machines. Here in this tutorial,
+I’ll be using two servers.
+1. NFS Server: nfsserver.example.com with IP-192.168.1.10
+2. NFS Client : nfsclient.example.com with IP-192.168.1.50
+NFS Options
+Some other options we can use in “/etc/exports” file for file sharing is as follows.
+1. ro: With the help of this option we can provide read only access to the shared files
+i.e client will only be able to read.
+2. rw: This option allows the client server to both read and write access within the
+shared directory.
+3. sync: Sync confirms requests to the shared directory only once the changes have
+been committed.
+4. no_subtree_check: This option prevents the subtree checking. When a shared
+directory is the subdirectory of a larger file system, nfs performs scans of every
+directory above it, in order to verify its permissions and details. Disabling the
+subtree check may increase the reliability of NFS, but reduce security.
+5. no_root_squash: This phrase allows root to connect to the designated directory.
+Ravendra 9675006960
+Important commands for NFS
+1. showmount -e : Shows the available shares on your local machine
+2. showmount -e <server-ip or hostname>: Lists the available shares at the remote
+server
+3. showmount -d : Lists all the sub directories
+4. exportfs -v : Displays a list of shares files and options on a server
+5. exportfs -a : Exports all shares listed in /etc/exports, or given name
+6. exportfs -u : Unexports all shares listed in /etc/exports, or given name
+7. exportfs -r : Refresh the server’s list after modifying /etc/exports
