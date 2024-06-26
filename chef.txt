@@ -43,3 +43,49 @@ file '/basicinfo' do
  group 'root'
 action :create
 end
+
+###this is ruby code for git by chef server ####
+Note- replace this path [cwd git_repo_dir] your init git direcroty.
+# Recipe to interact with an existing Git repository
+
+# Define variables for Git repository URL and directory
+git_repo_url = 'https://github.com/yourusername/your-repo.git'
+git_repo_dir = '/root/git'
+
+# Verify Git repository path
+execute 'verify-git-repo' do
+  command 'git status'
+  cwd git_repo_dir
+  action :run
+end
+
+# Pull latest changes from remote repository
+git git_repo_dir do
+  repository git_repo_url
+  action :sync
+end
+
+# Add files to Git (if necessary)
+execute 'git-add' do
+  command 'git add .'
+  cwd git_repo_dir
+  action :run
+  only_if 'git status --porcelain | grep .'
+end
+
+# Commit changes (if any)
+execute 'git-commit' do
+  command "git commit -m 'Automated commit by Chef'"
+  cwd git_repo_dir
+  action :run
+  only_if 'git status --porcelain | grep .'
+end
+
+# Push changes to remote repository
+execute 'git-push' do
+  command 'git push origin master'
+  cwd git_repo_dir
+  action :run
+  only_if 'git status --porcelain | grep .'
+end
+
