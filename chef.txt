@@ -88,4 +88,18 @@ execute 'git-push' do
   action :run
   only_if 'git status --porcelain | grep .'
 end
+##########find user and then delete ########
 
+user 'chef' do
+  action :create
+end
+group 'cheff' do
+  action :create
+  members 'chef'
+  append true
+end
+
+if node['etc']['passwd'].key?'chef'
+  user 'chef' do
+    action :remove
+  end
